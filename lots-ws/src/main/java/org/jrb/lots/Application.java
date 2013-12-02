@@ -24,8 +24,8 @@ package org.jrb.lots;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Import;
 @EnableAutoConfiguration
 @Import(ApplicationConfig.class)
 public class Application {
-	
+
 	public static final String ENV_LOCAL = "LOCAL";
 
 	private static final Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -48,14 +48,17 @@ public class Application {
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-		
+
+		// determine application environment
+		String appenv = System.getenv("APP_ENV");
+		appenv = (appenv != null) ? appenv : ENV_LOCAL;
+
 		// initialize application
 		LOG.info("Starting application");
-		final String appenv = System.getenv("APP_ENV");
-		System.setProperty("spring.profiles.active", appenv != null ? appenv : ENV_LOCAL);
-		final SpringApplication appl = new SpringApplication(Application.class);
-		appl.setShowBanner(false);
-		appl.run(args);
+		new SpringApplicationBuilder(Application.class)
+				.profiles(appenv)
+				.showBanner(false)
+				.run(args);
 
 	}
 }
