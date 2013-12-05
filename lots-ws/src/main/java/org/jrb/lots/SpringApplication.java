@@ -35,11 +35,11 @@ import org.springframework.context.annotation.Import;
  */
 @EnableAutoConfiguration
 @Import(ApplicationConfig.class)
-public class Application {
+public class SpringApplication {
 
 	public static final String ENV_LOCAL = "LOCAL";
 
-	private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SpringApplication.class);
 
 	/**
 	 * Main entry point for the LOTS application.
@@ -55,7 +55,7 @@ public class Application {
 
 		// initialize application
 		LOG.info("Starting application");
-		new SpringApplicationBuilder(Application.class)
+		new SpringApplicationBuilder(SpringApplication.class)
 				.profiles(appenv)
 				.showBanner(false)
 				.run(args);

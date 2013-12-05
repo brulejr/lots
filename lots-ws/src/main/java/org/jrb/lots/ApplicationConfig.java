@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 /**
@@ -36,16 +35,7 @@ import org.springframework.core.env.Environment;
  * @author <a href="mailto:brulejr@gmail.com">Jon Brule</a>
  */
 @Configuration
-@ComponentScan({
-		"org.jrb.lots.domain",
-		"org.jrb.lots.repository",
-		"org.jrb.lots.service",
-		"org.jrb.lots.web"
-})
-@PropertySource({
-		"classpath:config/lots.properties",
-		"classpath:config/${APP_ENV:LOCAL}/lots.properties"
-})
+@ComponentScan({ "org.jrb.lots.service" })
 @Import({ DatabaseConfig.class, WebConfig.class })
 public class ApplicationConfig {
 

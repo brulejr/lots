@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.jrb.lots.Application;
+import org.jrb.lots.SpringApplication;
 import org.jrb.lots.domain.Thing;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -31,7 +31,7 @@ import com.google.common.collect.Sets;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = SpringApplication.class)
 @ActiveProfiles("LOCAL")
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

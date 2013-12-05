@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -39,10 +40,14 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
  * @author <a href="mailto:brulejr@gmail.com">Jon Brule</a>
  */
 @Configuration
+@ComponentScan({
+	"org.jrb.lots.domain",
+	"org.jrb.lots.repository"
+})
 public class DatabaseConfig {
 	
 	@Configuration
-	@Profile(Application.ENV_LOCAL)
+	@Profile(SpringApplication.ENV_LOCAL)
 	static class Config_Local {
 		
 		@Bean

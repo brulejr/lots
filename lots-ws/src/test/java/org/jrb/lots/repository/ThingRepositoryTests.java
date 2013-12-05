@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.jrb.lots.Application;
+import org.jrb.lots.SpringApplication;
 import org.jrb.lots.domain.Thing;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -21,12 +21,14 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
+@ContextConfiguration(classes = SpringApplication.class, loader = SpringApplicationContextLoader.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@ActiveProfiles(SpringApplication.ENV_LOCAL)
 public class ThingRepositoryTests {
 
 	private final static Logger LOG = LoggerFactory.getLogger(ThingRepositoryTests.class);

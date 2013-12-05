@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.jrb.lots.Application;
+import org.jrb.lots.SpringApplication;
 import org.jrb.lots.domain.Tag;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
+@ContextConfiguration(classes = SpringApplication.class, loader = SpringApplicationContextLoader.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TagRepositoryTests {
 
