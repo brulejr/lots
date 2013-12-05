@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -45,14 +46,36 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
  * @author <a href="mailto:brulejr@gmail.com">Jon Brule</a>
  */
 @Configuration
+@ComponentScan({ "org.jrb.lots.web" })
 public class WebConfig {
 
+	@Autowired
+	private Environment env;
+
+	@Bean
+	public ResponseUtils responseUtils() {
+		return new ResponseUtils();
+	}
+
+	@Bean
+	public EmbeddedServletContainerFactory servletContainer() {
+		final int port = env.getRequiredProperty("http.server.port", Integer.class);
+		final JettyEmbeddedServletContainerFactory factory = new JettyEmbeddedServletContainerFactory();
+		factory.setPort(port);
+		return factory;
+	}
+
+	@Bean
+	public WebMvcConfigurer webConfiguration() {
+		return new WebMvcConfigurer();
+	}
+
 	/**
-	 * Defines callback methods to customize the web application.
+	 * Customizes the web application.
 	 * 
 	 * @author <a href="mailto:brulejr@gmail.com">Jon Brule</a>
 	 */
-	static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
+	protected static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
 		@Override
 		public void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
@@ -72,28 +95,7 @@ public class WebConfig {
 
 			return converter;
 		}
-		
-	}
 
-	@Autowired
-	private Environment env;
-
-	@Bean
-	public ResponseUtils responseUtils() {
-		return new ResponseUtils();
-	}
-
-	@Bean
-	public EmbeddedServletContainerFactory servletContainer() {
-		final int port = env.getRequiredProperty("http.server.port", Integer.class);
-		final JettyEmbeddedServletContainerFactory factory = new JettyEmbeddedServletContainerFactory();
-		factory.setPort(port);
-		return factory;
-	}
-
-	@Bean
-	public WebMvcConfigurer webMvcConfigurerAdapter() {
-		return new WebMvcConfigurer();
 	}
 
 }
